@@ -1,0 +1,6 @@
+1) install JDK 1.8
+2) create JAVA_HOME and add it into path environment variable. Tomcat server needs to use this path to look for JDK.
+3) download and unzip Eclipse JEE Neon;
+4) Download Tomcat 9.0, unzip it; basic test;
+5) link eclipse with Tomcat; and test;
+

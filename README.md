@@ -1,2 +1,2 @@
 # StudyNotes
-Study Notes
+All kinds of Study Notes related to CS and EE.

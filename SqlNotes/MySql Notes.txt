@@ -1,0 +1,55 @@
+
+
+
+=============================================================================
+    Start MYSQL
+=============================================================================
+Run cmd with as administrator;
+mysql -u root -p
+then, enter pw, (press enter if use empty pw);
+
+=============================================================================
+    Import sql file
+=============================================================================
+source d:\BoLouisWork\DB\utf8mb4_tomcat\fileName.sql;
+(disk must be lower case, i.e. d: instead of D:).
+
+If you want to import multiple sql files, 
+you can copy them into one file, then import it.
+
+in cmd, 
+cd d:\BoLouisWork\DB\utf8mb4_tomcat\
+copy /b *.sql ..\newFileName.sql
+
+then, start mysql,
+source d:\BoLouisWork\DB\newFileName.sql;
+
+=============================================================================
+    show DBs and tables
+=============================================================================
+
+show databases;
+use demo;
+show tables;
+
+=============================================================================
+    show table structure
+=============================================================================
+
+describe table_name;
+or, you can use:
+Show Fields from <insert table name>
+
+=============================================================================
+    delete table 
+=============================================================================
+
+drop table table_2;
+
+
+show index from TABLE where Key_name = 'PRIMARY' ;
+
+
+
+
+

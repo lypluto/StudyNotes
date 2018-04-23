@@ -1,0 +1,20 @@
+==============================================================
+Unzip path on my PC:
+D:\Programs\Tomcat\apache-tomcat-9.0.6\bin
+
+==============================================================
+cd and go to bin folder of Tomcat install path:
+Example: D:\Programs\Tomcat\apache-tomcat-9.0.6\bin
+==============================================================
+How to start Tomcat Server:
+On Linux: ./startup.sh
+On Windows: % startup.bat
+==============================================================
+How to stop Tomcat Server:
+On Linux: ./shutdown.sh
+On Windows: % shutdown.bat
+==============================================================
+The test files should be put in folder of webapps\ROOT:
+Example:
+D:\Programs\Tomcat\apache-tomcat-9.0.6\webapps\ROOT\test.jsp
+==============================================================

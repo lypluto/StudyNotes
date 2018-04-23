@@ -1,0 +1,278 @@
+
+============================================================
+	Install git in Ubuntu
+============================================================
+Step 1: Install repo tool in Ubuntu:
+
+Open linux shell terminal on server or use MobaXterm:
+
+mkdir ~/bin	-> create bin folder in Ubuntu account root path (i.e. home/louislu)
+PATH=~/bin:$PATH
+curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+---------------------------------------------------
+Step 2: Sync repos from remote to local Ubuntu:
+
+mkdir android_KK	-> create android folder in Ubuntu account root path (i.e. home/louislu)
+cd android_KK	-> attention: always sync repo in android folder!!!
+
+*** without SDK build tools ***
+repo init -u git@git.harman.com:platform/android-manifest.git -b harman-info3-kk-release -m harman_info3_default.xml 
+
+*** with SDK build tools ***
+repo init -u git@git.harman.com:platform/android-manifest.git -b harman-info3-kk-release -m harman_info3_default.xml -g all,-notdefault,tools
+repo sync
+
+============================================================
+	Some special repo sync cmds
+============================================================
+# You can only repo sync a certain project, for example (pay attention to the path format):
+repo sync harman/frameworks/base/ -j8
+---------------------------------------------------
+# You can only repo sync current branch (harman-info3-kk-release) by:
+repo sync -c
+
+but if you want to see other people's new remote branch, 
+you have to do fully repo sync, because their remote branches are not part of the current branch.
+---------------------------------------------------
+
+
+
+============================================================
+	commit viewer for git 
+============================================================
+gitk
+
+============================================================
+	How to push your changes
+============================================================
+After you finish any changes, go to corresponding directory,
+and check your changes, for example:
+---------------------------------------------------
+cd ~/android_KitKat/harman/frameworks/base/
+---------------------------------------------------
+git status 	-> you will see the changes u made.
+git diff <file>	-> compare your changes, press Q to quit git diff
+git diff <commit1 #> <commit2 #>   -> compare the diff of two commits
+
+git add <file>	-> accept the changes u made.
+git rm <file> -> accept the delete of a file.
+git checkout <file> 	-> discard your changes and go back to the unchanged one.
+---------------------------------------------------
+git status 	-> if you did a git add, then your changes will be green now. 
+---------------------------------------------------
+git checkout -b <repo> 	-> create a new local branch; use US as branch name.
+git branch -a	-> check all the branches and see which branch you're in.
+git commit	-> submit the changes to your local branch.
+git commit -m "Description"
+git push harman <repo> 	-> push your changes to remote branch (same name).
+---------------------------------------------------
+******
+If for some reason your Merge Request can not be merged due to conflicts, you need to rebase <your-branch> to latest and push again for Merge.
+
+Assuming you are on <your-branch>
+git fetch harman { to fetch latest code in specific git repository }
+git fetch -p harman
+git rebase harman/<release-branch-name> { rebase your branch on top of latest release branch ( harman-info3-kk-release/harman-info3-lp-release) }
+Resolve conflicts if any and commit and push <your-branch> again 
+git rebase --continue
+git push -f harman <your-branch> { Note that -f here is for force-push to overwrite you previous commit with new rebased one )
+
+---------------------------------------------------
+	How to update remote branch after sent MR 
+---------------------------------------------------
+if you have already pushed a branch to git.harman.com and sent the MR, then you need to rebase it to latest and push again,
+after rebase, you need to use:
+git push -f harman <local-branch>:<remote-branch without /remotes/harman/> 
+The MR will be updated as well. 
+
+============================================================
+	How to push a local branch to another remote branch
+============================================================
+format:
+git push <remote repo, ex: harman> local_branch:remote_branch
+
+example:
+git push -u harman XM_Integration_Branch:US14421_Exercise_XM_API_No_Jackson
+git push -u harman Integration:US14422_Exercise_Add_Fix_TunerAPIs -> push your local changes to remote, and change the branch name.
+
+============================================================
+	How to delete a branch  
+============================================================
+git branch -D <local-branch>	-> delete a local branch from your computer
+git push harman --delete <remote-branch without /remotes/harman/>	   -> delete a remote branch from the main branch.
+
+============================================================
+	How to merge a branch  
+============================================================
+git merge <branch name>	-> normanlly, do a repo sync first, then merge
+
+# deal with merge conflict:
+git merge -s recursive -X theirs <branch name>	-> if conflict, use the files in the branch to be merged
+git merge -s recursive -X ours <branch name>	-> if conflict, keep current files unchanged.
+
+============================================================
+	How to check your git operation record
+============================================================
+git log		-> press Q to quit git log
+git log -n N --stat	-> check the latest N commits with the changed files info
+
+============================================================
+	How to squash your last N commits
+============================================================
+git rebase -i HEAD~N	-> N is the last N commits you want to squash
+
+After this, the editor window will pop-up 
+and you need to "pick" or just "p" the latest one,
+then, "squash" or just "s" for the second and other subsequent commits.
+save and close the window.
+
+Then, another editor window pop-up, 
+you can edit the commit message here.
+use "#" to comment out unnecessary commit messages and add the new message if you need.
+save and close the window.
+
+============================================================
+	How to update the remote branch list
+============================================================
+git remote update --prune <remote repo, ex: harman>
+* update 	-> add new remote branches
+* prune 	-> remove deleted branches from the list
+* update --prune 	-> basically the same to repo sync <project name>
+
+============================================================
+	commit and push the changes to the same branch your are in
+============================================================
+git commit --amend
+git push -f <repo>
+
+Some people did not install the proper editor for editing the commit msg, 
+then the default VIM editor or other editor will be used; 
+in this case, after you finish editing the commit msg, 
+you need to press <ESC> button, type
+:wq and press <ENTER> btn to finish the commit process.
+If you want to cancel the commit msg, type
+:q!
+
+============================================================
+	Sometimes, repo sync has errors because of changes on a certain app project
+============================================================
+<Solution 1>
+cd harman/apps/GmAudio  
+git reset --hard  
+git clean -fdx  
+repo sync  
+---------------------------------------------------
+<Solution 2>
+cd harman/apps/GmAudio 
+git reset --hard  
+git checkout harman/harman-info3-kk-release  
+go back to <ANDROID_ROOT> 
+repo sync  
+---------------------------------------------------
+<Solution 3>
+rm -rf harman/apps/GMAudio
+rm -rf .repo/projects/harman/apps/GMAudio.git  
+repo sync  
+---------------------------------------------------
+
+============================================================
+	Leave current branch and then sync to main branch
+============================================================
+git checkout remotes/m/harman-info3-kk-release
+croot
+repo sync
+
+============================================================
+	reset and clean repo
+============================================================
+git reset --hard 	-> get rid of the changes
+git clean -fdx 		-> remove the untracked files (such as .orig files)
+---------------------------------------------------
+you can use these two in one line by:
+git reset --hard; git clean -fdx
+
+============================================================
+	How to use cherry-pick
+============================================================
+# The purpose: try to add a commit in one branch into another branch.
+git checkout -b test01	   // normally we create a new branch from trunk.
+git cherry-pick 0868290f015e29411b32d760bd3e4a2e57adf2a4 	// here, use the commit number directly.
+
+Then, check the git log to verify the commit is merged.
+
+
+# If you made a change in MY17 baseline, and want it to be applicable in MY18 baseline as well:
+1) push the changes made in MY17 to harman git first.
+2) in MY18, repo sync to latest baseline
+3) git cherry-pick <commit number in MY17>
+4) push the new change in MY18 to harman git (you need to use a different remote branch name).
+
+------------------------------------------------------------
+If you want to cherry-pick multiple commits in a range, you can do this:
+
+git cherry-pick ebe6942..905e279    // ATTENTION, 1st hash is oldest commit, 2nd hash is newest
+                                    // by default, 1st hash is NOT included.
+
+
+git cherry-pick ebe6942^..905e279   // if you want to include oldest commit, add ^ after 1st hash.
+
+============================================================
+	How to checkout a remote branch if you don't know the detailed path
+============================================================
+repo forall -p -c git checkout -b <new local branch name> <remote branch name>
+# Example:
+repo forall -p -c git checkout -b US75723_Providing_M4_Partnumber_and_DLS_to_J6 harman/US75723_Providing_M4_Partnumber_and_DLS_to_J6
+
+============================================================
+	Merge conflict
+============================================================
+git mergetool
+Then, press enter to start fix the conflict file; Click "next" to locate the conflict part in the file.  
+after save the changes and exit the editor, then you can press enter to start fix the next conflict file.
+---------------------------------------------------
+
+============================================================
+	How to stash local changes
+============================================================
+
+git stash save -u "description"     -> -u means stash include untracked files
+
+git stash list      -> to see all stash records
+
+git stash pop stash@{0}     -> pop up the corresponding stash record
+
+
+
+
+============================================================
+	eclipse <---> ubuntu server
+============================================================
+
+some changes made in eclipse, and you want to sync in ubuntu:
+
+1. commit and push in eclipse
+2. in ubuntu, git log -n N --stat
+3. git reset --hard <latest commit>
+
+some changes made in ubuntu, and you want to sync in eclipse:
+
+1. in eclipse, fetch from Upstream,
+2. in eclipse, rebase the same remote branch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

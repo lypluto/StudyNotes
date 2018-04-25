@@ -242,8 +242,9 @@ git stash list      -> to see all stash records
 
 git stash pop stash@{0}     -> pop up the corresponding stash record
 
+git stash drop stash@{0}    -> get rid of a certain stash record
 
-
+git stash clear             -> remove all stash records
 
 ============================================================
 	eclipse <---> ubuntu server

@@ -1,0 +1,86 @@
+================================================================================
+    Setup MySql in Ubuntu (5.6 or 5.7)
+================================================================================
+
+For Ubuntu user, refer to this article:
+https://my.oschina.net/WWWW23223/blog/614608
+
+[1] Go to official web
+https://dev.mysql.com/downloads/mysql/5.6.html#downloads
+
+[2] Select Linux, Ubuntu 14, Download the .tar file.
+mysql-server_5.6.40-1ubuntu14.04_i386.deb-bundle.tar
+
+放在 /home/soft/ 下解压：
+
+cd /home/soft/
+sudo chmod +x mysql-server_5.7.9-1ubuntu14.04_amd64.deb-bundle.tar
+tar -zxvf mysql-server_5.7.9-1ubuntu14.04_amd64.deb-bundle.tar
+
+3,解压出以下文件：
+
+libmysqlclient20_5.7.9-1ubuntu14.04_amd64.deb
+
+libmysqlclient-dev_5.7.9-1ubuntu14.04_amd64.deb
+
+libmysqld-dev_5.7.9-1ubuntu14.04_amd64.deb  
+
+mysql-community-client_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb      
+
+mysql-community-source_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-client_5.7.9-1ubuntu14.04_amd64.deb         
+
+mysql-community-test_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-common_5.7.9-1ubuntu14.04_amd64.deb         
+
+mysql-server_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-community_5.7.9-1ubuntu14.04_amd64.changes  
+
+mysql-testsuite_5.7.9-1ubuntu14.04_amd64.deb
+
+4,更新设置到最新系统：
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install libaio1
+
+5,然后分别安装以下的包：
+sudo dpkg -i mysql-common_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg-preconfigure mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb
+此步需要输入数据的root密码
+
+sudo dpkg -i libmysqlclient20_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i libmysqlclient-dev_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i libmysqld-dev_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-client_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-community-client_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-common_5.7.9-1ubuntu14.04_amd64.deb
+
+6. 
+sudo systemctl enable mysql.service
+sudo apt-get -f install
+此步为了安装依赖包 libmecab2
+
+sudo dpkg -i mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-server_5.7.9-1ubuntu14.04_amd64.deb
+
+7, 这时数据安装完成，并自动启动; 查看mysql安装的路径和依赖：
+
+whereis mysql
+
+mysql: /usr/bin/mysql /etc/mysql /usr/lib/mysql /usr/include/mysql /usr/share/mysql /usr/share/man/man1/mysql.1.gz
+
+这时你会发现 mysql以服务形式自启动
+
+--------------------------------------------------------------------------------
+
+For Windows user, refer to this article:
+MySQL 5.6 for Windows 解压缩版配置安装
+https://jingyan.baidu.com/article/f3ad7d0ffc061a09c3345bf0.html
+
+check MySql version:
+$ mysql -V

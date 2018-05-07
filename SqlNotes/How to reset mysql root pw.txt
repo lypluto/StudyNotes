@@ -1,0 +1,41 @@
+
+================================================================================
+    How to reset MySql root pw in Ubuntu
+================================================================================
+
+[1] stop mysql server:
+sudo /etc/init.d/mysql stop
+
+OR:
+
+sudo service mysql stop
+
+[2] start mysql without pw (safe mode):
+sudo mysqld_safe --skip-grant-tables &
+
+[3] connect to mysql:
+mysql -uroot
+
+[4] set a new mysql root pw:
+use mysql;
+update user set password=PASSWORD("newPW") where User='root';       ==> here, change newPW with your new pw!
+flush privileges;
+quit
+
+[5] stop and start mysql service
+sudo /etc/init.d/mysql stop
+...
+sudo /etc/init.d/mysql start
+
+OR: 
+
+sudo service mysql stop
+...
+sudo service mysql start
+
+[6] Login with new pw:
+mysql -u root -p
+
+
+
+

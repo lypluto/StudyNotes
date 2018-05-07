@@ -1,0 +1,56 @@
+
+================================================================================
+    How to uninstall old kernel to clean boot partition
+================================================================================
+
+Sometimes new kernels are installed automatically into Ubuntu, 
+and cause no enough space in boot partition.
+You can uninstall old kernel to get more space in boot.
+
+[1] Check what kernel you are using now, since you don't want to uninstall it.
+uname -a
+
+ex: 
+Linux xiao 4.4.0-36-generic #55-Ubuntu SMP Thu Aug 11 18:01:55 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+
+[2] Show all installed kernel on your machine:
+dpkg --get-selections |grep linux-image
+
+ex:
+linux-image-4.4.0-31-generic install
+linux-image-4.4.0-34-generic install
+linux-image-4.4.0-36-generic install
+linux-image-extra-4.4.0-31-generic install
+linux-image-extra-4.4.0-34-generic install
+linux-image-extra-4.4.0-36-generic install
+linux-image-generic install
+
+
+[3] uninstall old kernels:
+sudo apt-get autoremove linux-image-4.4.0-31-generic linux-image-4.4.0-34-generic 
+
+Then, check the installed kernel again, you will see old ones are marked as deinstall:
+dpkg --get-selections |grep linux-image
+
+ex:
+linux-image-4.4.0-31-generic deinstall
+linux-image-4.4.0-34-generic deinstall
+linux-image-4.4.0-36-generic install
+linux-image-extra-4.4.0-31-generic deinstall
+linux-image-extra-4.4.0-34-generic deinstall
+linux-image-extra-4.4.0-36-generic install
+linux-image-generic install
+
+[4] clean up old packages:
+sudo dpkg -P linux-image-4.4.0-31-generic linux-image-extra-4.4.0-31-generic  linux-image-4.4.0-34-generic linux-image-extra-4.4.0-34-generic
+
+check again:
+dpkg --get-selections |grep linux-image
+
+ex:
+linux-image-4.4.0-36-generic install
+linux-image-extra-4.4.0-36-generic install
+linux-image-generic install
+
+
+

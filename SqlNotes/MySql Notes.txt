@@ -9,10 +9,21 @@ mysql -u root -p
 then, enter pw, (press enter if use empty pw);
 
 =============================================================================
+    check MYSQL version
+=============================================================================
+mysql -V
+
+=============================================================================
+    check MYSQL install path
+=============================================================================
+whereis mysql
+
+=============================================================================
     Import sql file
 =============================================================================
-source d:\BoLouisWork\DB\utf8mb4_tomcat\fileName.sql;
+source d:\BoLouisWork\DB\utf8mb4_tomcat\fileName.sql
 (disk must be lower case, i.e. d: instead of D:).
+(do not use ; at the end for source)
 
 If you want to import multiple sql files, 
 you can copy them into one file, then import it.

@@ -1,0 +1,13 @@
+========================================================================
+    package name
+========================================================================
+
+When create a spring boot starter project, 
+you will be ask to fill a package name. 
+
+In the future, all sub packages must start with this package name.
+Otherwise, the url cannot be found!
+
+========================================================================
+    END
+========================================================================

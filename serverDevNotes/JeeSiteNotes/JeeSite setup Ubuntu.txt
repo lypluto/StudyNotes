@@ -1,0 +1,172 @@
+================================================================================
+    Setup JDK 1.8 in Ubuntu
+================================================================================
+
+
+
+================================================================================
+    Setup Eclipse in Ubuntu
+================================================================================
+[1] download Eclipse IDE tar.gz file 
+
+[2] unzip the file, get the eclipse folder
+
+[3] add eclipse path into environment PATH
+
+edit the ~/.bashrc file:
+
+# useful env vars
+export ECLIPSE_HOME=/home/louis.lu/LouisSRATools/EclipseJeeNeon/eclipse
+export JAVA_HOME=/usr/lib/jvm/jdk1.8
+export ANDROID_JAVA_HOME=$JAVA_HOME
+export EDITOR=vi
+export GIT_EDITOR=vi
+export PATH=\
+~/bin:\
+$ANDROID_HOME/platform-tools:\
+$ANDROID_STUDIO_HOME/bin:\
+$ECLIPSE_HOME:\
+$JAVA_HOME/bin:\
+$P4V_HOME/bin:\
+$INTELLIJ_HOME/bin:\
+$PATH
+
+source ~/.bashrc
+
+[4] Then, you can launch Eclipse by typing eclipse in any path.
+$ eclipse &
+
+
+================================================================================
+    Setup Maven in Ubuntu
+================================================================================
+
+[1] Download binary
+For Ubuntu: Download Binary tar.gz archive from: https://maven.apache.org/download.cgi
+For Windows: Download Binary zip archive from: https://maven.apache.org/download.cgi
+
+[2] Unzip the file, get the maven folder.
+tar zxvf apache-maven-3.3.9-bin.tar.gz
+
+[3] move maven folder, and create link under /opt
+sudo mv apache-maven-3.3.9/ /opt/apache-maven-3.3.9/
+sudo ln -s /opt/apache-maven-3.3.9/ /opt/maven
+
+[4] add maven path to environment PATH
+sudo vim ~/.bashrc
+#如果要配置系统级别的环境变量，则应该编辑以下文件
+sudo vim /etc/profile
+
+export M2_HOME=/opt/maven
+export M2=$M2_HOME/bin
+export PATH=$M2:$PATH
+
+[5] refresh bashrc file:
+source ~/.bashrc 
+
+[6] test
+mvn -version
+
+================================================================================
+    Setup MySql in Ubuntu
+================================================================================
+
+For Ubuntu user, refer to this article:
+https://my.oschina.net/WWWW23223/blog/614608
+
+[1] Go to official web
+https://dev.mysql.com/downloads/mysql/5.6.html#downloads
+
+[2] Select Linux, Ubuntu 14, Download the .tar file.
+mysql-server_5.6.40-1ubuntu14.04_i386.deb-bundle.tar
+
+放在 /home/soft/ 下解压：
+
+cd /home/soft/
+sudo chmod +x mysql-server_5.7.9-1ubuntu14.04_amd64.deb-bundle.tar
+tar -zxvf mysql-server_5.7.9-1ubuntu14.04_amd64.deb-bundle.tar
+
+3,解压出以下文件：
+
+libmysqlclient20_5.7.9-1ubuntu14.04_amd64.deb
+
+libmysqlclient-dev_5.7.9-1ubuntu14.04_amd64.deb
+
+libmysqld-dev_5.7.9-1ubuntu14.04_amd64.deb  
+
+mysql-community-client_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb      
+
+mysql-community-source_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-client_5.7.9-1ubuntu14.04_amd64.deb         
+
+mysql-community-test_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-common_5.7.9-1ubuntu14.04_amd64.deb         
+
+mysql-server_5.7.9-1ubuntu14.04_amd64.deb
+
+mysql-community_5.7.9-1ubuntu14.04_amd64.changes  
+
+mysql-testsuite_5.7.9-1ubuntu14.04_amd64.deb
+
+4,更新设置到最新系统：
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install libaio1
+
+5,然后分别安装以下的包：
+sudo dpkg -i mysql-common_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg-preconfigure mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb
+此步需要输入数据的root密码
+
+sudo dpkg -i libmysqlclient20_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i libmysqlclient-dev_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i libmysqld-dev_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-client_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-community-client_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-common_5.7.9-1ubuntu14.04_amd64.deb
+
+6. 
+sudo systemctl enable mysql.service
+sudo apt-get -f install
+此步为了安装依赖包 libmecab2
+
+sudo dpkg -i mysql-community-server_5.7.9-1ubuntu14.04_amd64.deb
+sudo dpkg -i mysql-server_5.7.9-1ubuntu14.04_amd64.deb
+
+7, 这时数据安装完成，并自动启动; 查看mysql安装的路径和依赖：
+
+whereis mysql
+
+mysql: /usr/bin/mysql /etc/mysql /usr/lib/mysql /usr/include/mysql /usr/share/mysql /usr/share/man/man1/mysql.1.gz
+
+这时你会发现 mysql以服务形式自启动
+
+--------------------------------------------------------------------------------
+
+For Windows user, refer to this article:
+MySQL 5.6 for Windows 解压缩版配置安装
+https://jingyan.baidu.com/article/f3ad7d0ffc061a09c3345bf0.html
+
+check MySql version:
+$ mysql -V
+
+================================================================================
+    Setup Jeesite demo project in Ubuntu
+================================================================================
+Official doc:
+http://jeesite4.mydoc.io/?t=267354
+
+
+
+
+
+
+
+
+
+
+

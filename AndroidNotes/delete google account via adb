@@ -1,0 +1,3 @@
+adb shell dd if=/dev/zero of=/dev/block/persistent bs=1 count=1024
+ 
+adb shell dd if=/dev/zero of=/dev/block/steady bs=1 count=1024

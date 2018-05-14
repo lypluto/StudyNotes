@@ -1,0 +1,75 @@
+
+================================================================================
+    How to build goldfish kernel
+================================================================================
+[1] Set cross compile by editing the root Makefile:
+
+------[Option 1]----------------------------------------------------------------
+/media/louis/2ndHDD/UbuntuFiles/AndroidSystems/goldfishKernel/goldfish/Makefile
+
+ARCH            ?= arm
+CROSS_COMPILE   ?= arm-eabi-
+
+------[Option 2]----------------------------------------------------------------
+
+$ export ARCH=arm
+
+$ export CROSS_COMPILE=arm-eabi-
+
+* If your android do not have cross compile like arm-eabi-*, 
+  then you need to look at the AndroidRoot/prebuilts/gcc/linux-x86/arm/ folder, 
+  and find the corresponding cross compile tool; 
+  For example, for android N, I need to use this:
+$ export CROSS_COMPILE=arm-linux-androideabi-
+
+================================================================================
+[2] Add cross compile dir to PATH (otherwise, make cannot find cross compile tool):
+
+$ export PATH=$PATH:/media/louis/2ndHDD/UbuntuFiles/AndroidSystems/AndroidMForNexus6/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
+
+* For android N: 
+$ export PATH=$PATH:/home/louis.lu/googleAndroid/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
+
+================================================================================
+[3] modify hardware config file:
+
+for arm v5 CPU: 
+$ make goldfish_defconfig
+
+for arm v7 CPU: 
+$ make goldfish_armv7_defconfig
+
+================================================================================
+[4] build
+
+$ make
+
+================================================================================
+    goldfish kernel build result
+================================================================================
+After a successful build, you will see:
+OBJCOPY arch/arm/boot/zImage
+Kernel: arch/arm/boot/zImage is ready
+
+This arch/arm/boot/zImage is the kernel file.
+You can now launch emulator with this kernel.
+Please refer to Emulator Notes for details.
+
+================================================================================
+    goldfish kernel build KNOWN issue
+================================================================================
+
+-----[Known 1]------------------------------------------------------------------
+For goldfish kernel 3.10+
+
+In file ~/goldfish/arch/arm/include/asm/pgtable-2level.h, the following line is missing:
+
+#define L_PTE_MT_VECTORS	(_AT(pteval_t, 0x0f) << 2)	/* 1111 */
+
+See solution also here: 
+https://github.com/torvalds/linux/blob/b6ccb9803e90c16b212cf4ed62913a7591e79a39/arch/arm/include/asm/pgtable-2level.h#L143
+
+================================================================================
+    END
+================================================================================
+

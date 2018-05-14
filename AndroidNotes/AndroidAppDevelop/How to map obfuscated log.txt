@@ -1,0 +1,18 @@
+================================================================================
+    How to mapping obfuscated logs
+================================================================================
+
+[1] Enter Android folder, find proguardgui.sh under tools:
+$ cd ~/Android/Sdk/tools/proguard/bin
+
+[2] Launch the GUI of proguard:
+louis.lu@SRA7178:~/Android/Sdk/tools/proguard/bin$ . proguardgui.sh 
+
+[3] Find the mapping.txt file:
+Normally, for user build, after compile, you can find mapping file here:
+/app/build/outputs/mapping/
+
+[4] Click ReTrace option on the left in proguard GUI; Load the mapping.txt;
+
+[5] Load stack trace, then click ReTrace!
+

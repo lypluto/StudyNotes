@@ -1,0 +1,25 @@
+
+==========================================================================
+	Increase the vm heap size
+==========================================================================
+~/LouisSRATools/android-studio/bin/
+
+studio64.vmoptions
+
+Edit this file and increase the size for the heap.
+-Xms1g
+-Xmx8g
+-XX:MaxPermSize=6g​
+
+==========================================================================
+	Increase the jvm size for a specific project
+==========================================================================
+Add the following line in root/gradle.properties
+
+gradle.properties
+
+org.gradle.jvmargs=-Xmx8g
+
+==========================================================================
+
+==========================================================================

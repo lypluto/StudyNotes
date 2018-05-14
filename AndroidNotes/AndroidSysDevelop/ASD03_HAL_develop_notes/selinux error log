@@ -1,0 +1,21 @@
+03-18 21:38:45.570   233   233 W system_server: type=1400 audit(0.0:6): avc: denied { read write } for name="freg" dev="tmpfs" ino=1533 scontext=u:r:system_server:s0 tcontext=u:object_r:device:s0 tclass=chr_file permissive=0
+03-18 21:38:45.579   233   233 I SystemServer: Freg Service
+03-18 21:38:45.580   233   233 I FregServiceJNI: Initializing HAL stub freg...
+03-18 21:38:45.585   233   233 I FregServiceJNI: Device freg found.
+03-18 21:38:45.596   233   233 E FregHALStub: Failed to open device file /dev/freg -- Permission denied.
+03-18 21:38:45.596   233   233 E FregServiceJNI: Failed to open device freg.
+03-18 21:38:45.597   233   233 E FregService: Failed to initialize freg service.
+03-18 21:38:45.601    58    58 E SELinux : avc:  denied  { add } for service=freg scontext=u:r:system_server:s0 tcontext=u:object_r:default_android_service:s0 tclass=service_manager
+03-18 21:38:45.602    58    58 E ServiceManager: add_service('freg',26) uid=1000 - PERMISSION DENIED
+03-18 21:38:45.604   233   233 E SystemServer: Failure starting Freg Service!
+03-18 21:40:01.817   233   562 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=lltest.freg/.FregTest bnds=[160,243][240,343] (has extras)} from uid 10008 on display 0
+03-18 21:40:01.993   233   563 I ActivityManager: Start proc 1065:lltest.freg/u0a53 for activity lltest.freg/.FregTest
+03-18 21:40:02.589  1065  1065 W System  : ClassLoader referenced unknown path: /system/app/FregTest/lib/arm
+03-18 21:40:03.010  1065  1065 I FregTest: onCreate().
+03-18 21:40:03.011  1065  1065 E FregTest: null fregService instance!
+03-18 21:40:03.012  1065  1065 I FregTest: END of onCreate().
+03-18 21:40:03.290   233   266 I ActivityManager: Displayed lltest.freg/.FregTest: +1s315ms
+03-18 21:40:08.170  1065  1065 E FregTest: read: no fregService instance!
+
+
+

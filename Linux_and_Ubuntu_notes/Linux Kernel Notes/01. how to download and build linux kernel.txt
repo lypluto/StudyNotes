@@ -1,0 +1,60 @@
+
+[1] webpage holds the source code:
+https://www.kernel.org/pub
+
+[2] You can directly download kernel code by select: 
+linux => kernel => v3.x => stable-review
+
+[3] Recommend to use GIT to download kernel source code:
+
+* SCM - Software Configuration Management
+
+Linux Kernel stable tree:
+
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+
+cd linux-stable
+
+git checkout v3.5.2
+
+make mrproper
+
+
+[4] download and install visual menu to config kernel
+https://ftp.gnu.org/gnu/ncurses/
+download this version to local folder:
+ncurses-5.9.tar.gz
+
+[5] switch to root su, open and install ncurses:
+
+                   tar zxvf ncurses-5.9.tar.gz
+                   cd ncurses-5.9
+                   ./configure
+                   make
+                   make install
+
+[6] go back to linux-stable folder:
+make menuconfig
+
+modify and exit config
+
+[7] make -j4
+
+[8] make modules_install
+
+[9] make install
+
+[10] update-grub2
+
+[11] cd /boot/grub/
+
+[12] gedit grub.cfg --> make sure you have the menuentry for new kernel
+
+
+
+
+
+
+
+
+

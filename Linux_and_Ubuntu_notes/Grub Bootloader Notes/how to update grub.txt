@@ -1,0 +1,23 @@
+================================================================================
+    How to update grub
+================================================================================
+
+[1] Open grub file
+$ gksudo gedit /etc/default/grub
+
+[2] Comment out GRUB_HIDDEN_TIMEOUT=0
+# GRUB_HIDDEN_TIMEOUT=0
+
+[3] Set how many second you want to show the Grub menu:
+GRUB_TIMEOUT=10
+
+[4] Save and close gedit; update grub.
+$ sudo update-grub
+
+[5]
+Now, restart ubuntu, and you should see Grub 2 menu
+
+================================================================================
+    END
+================================================================================
+

@@ -1,0 +1,16 @@
+=========================================================
+	How to get the fingerprint of an APK
+=========================================================
+
+[1] Make sure the app apk is signed with RSTV or SSB;
+
+[2] Then, get fingerprint from APK:
+
+keytool -list -printcert -jarfile <apk file name>
+
+[3] get version code/ version name from APK:
+
+aapt dump badging <apk file name>
+
+
+

@@ -1,0 +1,59 @@
+================================================================================
+    How to build Hello World Linux Kernel Module
+================================================================================
+
+[1] Create helloworld test folder:
+~/LinuxKernel/linux-stable/drivers/helloworld
+
+--------------------------------------------------------------------------------
+[2] create hello.c file
+
+// example code:
+#include <linux/init.h>
+#include <linux/module.h>
+MODULE_LICENSE("Dual BSD/GPL");
+
+static int hello_init(void) {
+    printk(KERN_ALERT "Hello, world\n");
+    return 0;
+}
+
+static int hello_exit(void) {
+    printk(KERN_ALERT "Goodbye, world\n");
+}
+
+module_init(hello_init);
+module_init(hello_exit);
+
+--------------------------------------------------------------------------------
+[3] create Makefile in the same folder
+    * make sure use vi to edit Makefile; 
+    * otherwise, the tab can be wrong;
+    * if you have successfully build the modules before, you should have the /lib/modules/<your kernel version>/build/ folder;
+
+// example code for Makefile:
+obj-m := hello.o
+KERNELBUILD :=/lib/modules/$(shell uname -r)/build
+default:
+    make -C $(KERNELBUILD) M=$(shell pwd) modules
+clean:
+    make -C $(KERNELBUILD) M=$(shell pwd) clean
+--------------------------------------------------------------------------------
+[4] build module:
+$ make
+
+--------------------------------------------------------------------------------
+[5] insert and remove module (only root account can insert/remove module)
+$ su
+# insmod hello.ko
+# rmmod hello
+
+--------------------------------------------------------------------------------
+[6] check kernel log, see if you can see the module insert and remove logs.
+$ tail -2 /var/log/kern.log
+    * /var/log/ -> this folder contains all linux logs, including kern.log;
+    * "tail -2" means see the last two lines in kern.log
+
+================================================================================
+    END
+================================================================================

@@ -1,0 +1,15 @@
+================================================================================
+    Troubleshoot Ubuntu full disk
+================================================================================
+
+normally it is caused by the cache logs;
+
+~/.cache/
+
+check which app is generating large logs; 
+you can use binary search to locate the folder;
+
+then, delete the large cache logs.
+
+
+

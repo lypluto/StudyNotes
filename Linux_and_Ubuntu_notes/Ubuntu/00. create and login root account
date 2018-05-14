@@ -1,0 +1,26 @@
+================================================================================
+    Create a root account
+================================================================================
+
+Launch shell, and run the following command:
+
+$ sudo passwd root
+
+After this, system will ask you enter password of current user; 
+After enter current user's password, system will ask you set new password
+for root account, and then re-type this password.
+
+Then, you will see info tells you that the 
+new password for root account is set successfully.
+
+================================================================================
+    Login as root account
+================================================================================
+
+$ su root
+
+Then, enter root password
+
+================================================================================
+    END
+================================================================================

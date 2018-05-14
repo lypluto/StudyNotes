@@ -1,0 +1,36 @@
+
+==========================================================================
+	How to add a dir to PATH
+==========================================================================
+
+# set up PATH in .bashrc
+
+cd ~
+gedit .bashrc
+
+# Add the following code at the end of .bashrc
+export PATH=\
+~/bin:\
+$PATH
+
+# save the changes, then run this command to update .bashrc
+source .bashrc
+
+--------------------------------------------------------------------------
+
+# how to add a dir to PATH, let's use android-studio as an example:
+
+export ANDROID_STUDIO_HOME=/home/louis/StudyTools/android-studio
+export PATH=\
+~/bin:\
+$ANDROID_STUDIO_HOME/bin:\
+$PATH
+
+# save the changes, then run this command to update .bashrc
+source .bashrc
+
+# Then you can run studio.sh in any dir
+
+==========================================================================
+	END
+==========================================================================

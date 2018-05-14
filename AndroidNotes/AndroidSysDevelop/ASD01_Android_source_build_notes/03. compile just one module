@@ -1,0 +1,54 @@
+
+================================================================================
+    How to Build a module
+================================================================================
+
+You can use "mmm" to build a certain module, 
+then use "make snod" to add the built module into system.img.
+
+example:
+mmm ./external/freg/
+make snod
+
+
+================================================================================
+    [Trouble shooting]
+================================================================================
+
+louis@louis-ubuntu-0212:/media/louis/2ndHDD/UbuntuFiles/AndroidSystems/AndroidMForNexus6$ make snod
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=6.0.1
+TARGET_PRODUCT=aosp_arm
+TARGET_BUILD_VARIANT=eng
+TARGET_BUILD_TYPE=release
+TARGET_BUILD_APPS=
+TARGET_ARCH=arm
+TARGET_ARCH_VARIANT=armv7-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=
+TARGET_2ND_ARCH_VARIANT=
+TARGET_2ND_CPU_VARIANT=
+HOST_ARCH=x86_64
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-4.10.0-42-generic-x86_64-with-Ubuntu-16.04-xenial
+HOST_BUILD_TYPE=release
+BUILD_ID=MOB31T
+OUT_DIR=out
+============================================
+build/core/Makefile:1057: Warning: with dexpreopt enabled, you may need a full rebuild.
+make: *** No rule to make target 'out/target/product/generic/root/file_contexts', needed by 'snod'.  Stop.
+
+
+# if you see this warning, you can disable dexpreopt:
+
+cd build/target/board/generic/
+
+
+gedit BoardConfig.mk
+
+ifeq ($(HOST_OS),linux)
+  ifeq ($(WITH_DEXPREOPT),)
+    WITH_DEXPREOPT := false
+  endif
+endif

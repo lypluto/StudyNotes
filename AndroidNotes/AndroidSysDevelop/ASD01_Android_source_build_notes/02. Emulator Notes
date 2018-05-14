@@ -1,0 +1,54 @@
+
+================================================================================
+	Default Launch
+================================================================================
+# emulator needs to be launched from AndroidRoot dir
+
+emulator
+
+*** Attention:
+Before running emulator, make sure you do these first:
+source ./build/envsetup.sh
+lunch 1     -> select the target version, such as aosp_arm-eng;
+
+================================================================================
+	Run with enlarged partition size
+================================================================================
+# If you see the following warnings, you need to run emulator with 
+# enlarged partition size;
+
+emulator: WARNING: system partition size adjusted to match image file (1536 MB > 200 MB)
+
+emulator: WARNING: data partition size adjusted to match image file (550 MB > 200 MB)
+
+
+emulator -partition-size 2048
+
+================================================================================
+	Run with different kernel
+================================================================================
+emulator -kernel ../goldfishKernel/goldfish/arch/arm/boot/zImage -partition-size 2048 &
+
+emulator -kernel /media/louis/2ndHDD/UbuntuFiles/AndroidSystems/goldfishKernel/goldfish/arch/arm/boot/zImage -partition-size 2048 &
+
+emulator -kernel ~/googleKernel/goldfish/arch/arm/boot/zImage -partition-size 2048 &
+
+emulator -kernel ~/googleAndroid/prebuilts/qemu-kernel/arm/kernel-qemu-armv7 -partition-size 2048 &
+
+================================================================================
+	Others
+================================================================================
+
+~/googleAndroid/prebuilts/qemu-kernel/build-kernel.sh --arch=x86 --config=i386_ranchu --out=/tmp/
+
+Kernel: arch/x86/boot/bzImage is ready  (#3)
+Kernel i386_ranchu prebuilt images (kernel-qemu and vmlinux-qemu) copied to /tmp/ successfully !
+
+emulator -kernel ~/googleKernel/goldfish/arch/x86/boot/bzImage -partition-size 2048 &
+
+
+
+
+
+
+

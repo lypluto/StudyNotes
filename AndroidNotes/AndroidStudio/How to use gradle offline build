@@ -1,0 +1,7 @@
+To use Gradle offline when building with Android Studio, proceed as follows:
+
+1) Open the Preferences window by clicking File > Settings 
+    (on Mac, Android Studio > Preferences).
+2) In the left pane, click Build, Execution, Deployment > Gradle.
+3) Check the Offline work checkbox.
+4) Click Apply or OK.

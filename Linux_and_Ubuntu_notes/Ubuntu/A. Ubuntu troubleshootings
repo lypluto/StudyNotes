@@ -1,0 +1,16 @@
+
+==========================================================================
+	Ubuntu Troubleshootings
+==========================================================================
+
+[Problem #1] /usr/bin lost
+
+Command 'sudo' is available in '/usr/bin/sudo'
+The command could not be located because '/usr/bin' is not included in the PATH environment variable.
+
+# Use the following command to recover /usr/bin to PATH:
+export PATH="/usr/bin:$PATH"
+
+==========================================================================
+	END
+==========================================================================

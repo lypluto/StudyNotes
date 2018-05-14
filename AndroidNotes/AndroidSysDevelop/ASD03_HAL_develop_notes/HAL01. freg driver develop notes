@@ -1,0 +1,136 @@
+================================================================================
+    Fake Register device driver development notes
+================================================================================
+
+[1] Implement the driver module
+
+/media/louis/2ndHDD/UbuntuFiles/AndroidSystems/goldfishKernel/goldfish/
+
+---drivers
+    ---freg
+        ---freg.h       -> defines struct fake_reg_dev
+        ---freg.c       -> impl interfaces for file ops, devfs, proc, and sys
+        ---Kconfig
+        ---Makefile     -> just one line: obj-$(CONFIG_FREG) += freg.o
+        
+
+================================================================================
+[2] modify kernel Kconfig:
+
+../goldfish/arch/arm/Kconfig
+
+add the following contents, so that make menuconfig can have option for Fake device.
+
+menu "Device Drivers"
+source "drivers/freg/Kconfig"
+endmenu
+        
+
+../goldfish/drivers/Kconfig
+
+add same sentence inside below menu "Device Drivers"
+
+source "drivers/freg/Kconfig"
+
+================================================================================
+[3] modify kernel Makefile:
+
+Open Makefile:
+../goldfish/drivers/Makefile
+
+Add this line:
+obj-$(CONFIG_FREG) += freg.o/
+
+================================================================================
+[4] Compile kernel (also see kernel build notes):
+
+$ export ARCH=arm
+$ export CROSS_COMPILE=arm-eabi-
+$ export PATH=$PATH:/media/louis/2ndHDD/UbuntuFiles/AndroidSystems/AndroidMForNexus6/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
+
+$ make goldfish_armv7_defconfig
+$ make menuconfig
+
+Select Device Drivers -> then select Fake Register Device, type Y for enable.
+Exit and Save;
+
+$ make
+
+After a successful build, you will see:
+OBJCOPY arch/arm/boot/zImage
+Kernel: arch/arm/boot/zImage is ready
+
+This arch/arm/boot/zImage is the kernel file.
+You can now launch emulator with this kernel.
+Please refer to Emulator Notes for details.
+
+================================================================================
+[5] launch emulator with our kernel with FREG device.
+
+$ source ./build/envsetup.sh
+$ lunch 1
+$ emulator -kernel /media/louis/2ndHDD/UbuntuFiles/AndroidSystems/goldfishKernel/goldfish/arch/arm/boot/zImage -partition-size 2048 &
+
+================================================================================
+[6] Test FREG device 
+
+adb shell
+
+-----[test 1]-------------------------------------------------------------------
+
+# cd dev
+/dev # ls freg
+
+==> you should see: freg
+
+-----[test 2]-------------------------------------------------------------------
+
+# cd /proc
+/proc # cat freg
+/proc # echo '5' > freg
+/proc # cat freg
+
+==> verify value change from 0 to 5
+
+-----[test 3]-------------------------------------------------------------------
+
+# cd /sys/class/freg/freg 
+/sys/class/freg/freg # cat val
+/sys/class/freg/freg # echo '0' > val
+/sys/class/freg/freg # cat val
+
+-----[test 4]-------------------------------------------------------------------
+
+Use a simple EXE to test read/write through /dev/freg
+The test EXE needs to be developed in Android project instead of the kernel project!
+
+~/Android
+---external
+    ---freg
+        ---freg.c       -> open, read, write, and close
+        ---Android.mk   -> build a EXECUTABLE
+
+Then, build the exe module:
+~/Android$ mmm ./external/freg/
+
+Then, add this exe into Android image file system.img
+~/Android$ make snod
+
+Relaunch the emulator, 
+
+# adb shell
+# cd /system/bin
+/system/bin # ./freg
+
+You will see the logs showing the open, read, write, close process.
+
+================================================================================
+    END
+================================================================================
+
+
+
+
+
+
+

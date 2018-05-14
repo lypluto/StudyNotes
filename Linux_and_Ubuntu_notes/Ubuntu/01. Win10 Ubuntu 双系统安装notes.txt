@@ -1,0 +1,44 @@
+Windows 10 Ubuntu 16.04 LTS 双系统安装笔记
+================================================================================
+1. Windows 10 压缩系统磁盘，给Ubuntu 留出足够的安装空间。(boot needs to be large enough > 200M)
+    http://zh.community.dell.com/support_forums/software/f/298/t/9400
+
+2. 制作Ubuntu安装USB stick: Rufus + Ubuntu.iso
+    https://www.ubuntu.com/download/desktop
+    https://tutorials.ubuntu.com/tutorial/tutorial-create-a-usb-stick-on-windows?_ga=2.37704544.1952677308.1514598352-1445260843.1514598352#0
+
+3. 修改BIOS/UEFI，关闭secure boot, 关闭 Fast Bios Mode
+
+4. Insert USB stick, reboot from USB
+
+5. Before install, try Ubuntu; if black screen, 
+    it means you may have some incompatible hardware (such as NVidia graphic card…). 
+    重启机器，光标选中Try Ubuntu Without Installing，
+    输入e，进入编辑，找到 ‘quiet splash’， 后面加上 ‘nomodeset’， 
+    然后进入系统；如果启动正常，说明确实是这个原因。
+    那么可以将来安装好系统后安装对应的驱动或者把 ‘nomodeset’ 这个 boot option写入 grub2。
+
+6. 用上述方法进入Try Ubuntu之后，可以运行桌面上的安装，开始安装Ubuntu。具体过程见这个文章：
+    http://blog.csdn.net/fesdgasdgasdg/article/details/54183577
+    dev/nvme0nlp3 -> Win10
+    dev/nvme0nlp4 -> Ubuntu
+
+7. 安装成功后，第一次运行，如果之前需要使用 ‘nomodeset’，那么这时候还要光标选中Ubuntu，输入e，进入编辑，找到 ‘quiet splash’， 后面加上 ‘nomodeset’， 然后进入系统；否则还是会黑屏。
+
+8. 进入Ubuntu之后，把 ‘nomodeset’ 这个 boot option写入 grub2；具体过程见这个文章：
+    https://ubuntuforums.org/showthread.php?t=1613132
+
+9. 试一下update, 如因为/boot容量不足不能升级，可以这样解决：
+    http://blog.lxx1.com/659
+
+10. 如果没声音，可以安装pavucontrol，具体过程见这个文章：
+    http://blog.csdn.net/lcalqf/article/details/78335087
+
+11. 中文输入法设置，具体过程见这个文章：
+    http://blog.csdn.net/u011795345/article/details/53041707
+    尝试ibus不成功，最后用了fcitx和google input;
+
+12. 如果想要从其他PC访问Ubuntu （比如通过WinSCP），那么需要给Ubuntu安装SSH service，具体过程见这个文章：
+    http://ubuntuhandbook.org/index.php/2016/04/enable-ssh-ubuntu-16-04-lts/
+
+13. 

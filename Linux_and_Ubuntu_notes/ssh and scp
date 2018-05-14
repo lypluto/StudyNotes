@@ -1,0 +1,21 @@
+-----------------------------------
+How to use ssh to connect to a remote server:
+
+# check the target linux IP address before you can connect.
+ip addr | grep inet
+ssh remote_username@remote_host
+
+Example: ssh louislu@10.249.44.131, where the remote host is the remote IP address you obtained. 
+
+Then, type the password of the target, and you should be able to connect.
+
+Type “exit” to disconnect the remote access.
+-----------------------------------
+How to use scp to move files
+scp remote_user@remote_host:/path/to/remote/file /path/to/local/file
+
+and vice versa:
+scp /path/to/local/file remote_user@remote_host:/path/to/remote/file
+
+Example: scp /home/louis.lu/file louis.lu@105.145.43.222:~/Desktop
+-----------------------------------

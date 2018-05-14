@@ -1,0 +1,74 @@
+
+============================================================
+	How to add a new module to your project
+============================================================
+
+Let's say, you have a module "app", 
+now you want to add a new module "common" to the project.
+
+[1] File -> Project Structure...
+[2] Click the green "+" icon to add a new module.
+[3] There are many module types, for example "Java Library". Add the one you need.
+[4] Follow the wizard, create the module. Then, you will see the module folder in your project.
+[5] In settings.gradle, you will see the following includes automatically, 
+	include ':app', ':common'
+    It means app and common these two modules will be compiled in your project.
+[6] Now, if you want to access the classes defined in "common" from "app", you need to add dependencies in "app", 
+    In details, go to "app" module, open build.gradle, and then add "common" into dependencies like the following way:
+
+	dependencies {
+	    compile project(':common')
+	    // todo: add other dependencies
+	}
+
+[7] After add the dependencies, gradle sync the project, 
+then you should be able to access the classes defined in "common" from "app".
+
+============================================================
+	How to delete a module from your project
+============================================================
+
+[1] File -> Project Structure...
+[2] On the left side panel, you should see all your Modules; 
+    click the one you want to delete, and then click the red "-" icon.
+    
+============================================================
+	How to build a certain module in your project
+============================================================
+
+If your project contains multiple modules, you can build only one of them.
+
+[1] Click "Gradle" sidebar on the right hand side in your IDE.
+[2] if you cannot find this sidebar, go to menu -> View -> Gradle, it will be opened.
+[3] In the opened "Gradle projects" editor, select a certain module, 
+    and open it.
+[4] Go to "Tasks" -> "build" -> "build" (there is a gear icon ahead of the option)
+[5] double click "build", then this module will be built.
+
+Sometimes, if this module has dependencies with other modules.
+In that case, this seperate build might fail.
+
+============================================================
+	Use Android Library Module
+============================================================
+
+If you are adding an AndroidLibrary module to your project, 
+and you are planning to use this module as a dependency from another module ("app" module for example), 
+then, you need to make sure you compile with the same SDK version in both modules. 
+
+For example, in the build.gradle in app module, you are using:
+
+compileSdkVersion 26
+buildToolsVersion "26.0.1"
+targetSdkVersion 26
+
+Then, in your build.gradle of your new AndroidLibrary module, you need to 
+use the same SDK version like above. Otherwise, you will see some error like this:
+
+/.../app/build/intermediates/res/merged/beta/debug/values-v26/values-v26.xml
+Error:(18, 21) No resource found that matches the given name: attr 'android:keyboardNavigationCluster'.
+Error:Execution failed for task ':app:processBetaDebugResources'.
+
+============================================================
+	END
+============================================================

@@ -1,0 +1,44 @@
+
+================================================================================
+    Access permissions need to pay attention in HAL project
+================================================================================
+
+Permissions must be granted, so that the 
+/dev/freg device can be accessed by our service.
+
+================================================================================
+    SELinux permission about device file access
+================================================================================
+[1] croot/external/sepolicy/file_contexts:
+/dev/freg	u:object_r:freg_device:s0
+
+[2] croot/external/sepolicy/device.te:
+type freg_device, dev_type;
+
+[3] croot/external/sepolicy/system_server.te:
+allow system_server freg_device:chr_file rw_file_perms;
+
+after [1], [2], [3], make -j8
+
+[4] /system/core/rootdir/ueventd.rc:
+/dev/freg          0666   root    root
+
+after [4], "make bootimage" to update ramdisk.img
+
+================================================================================
+    SELinux permission about system service
+================================================================================
+http://www.voidcn.com/article/p-dlnzayhv-uv.html
+
+[1] croot/external/sepolicy/service_contexts: add the following line:
+freg      u:object_r:freg_service:s0
+
+
+[2] croot/external/sepolicy/service.te: add the following line:
+type freg_service, system_api_service, system_server_service, service_manager_type;
+
+after [1], [2], make -j8
+
+================================================================================
+    END
+================================================================================

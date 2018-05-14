@@ -1,0 +1,29 @@
+
+=========================================================================
+	How to empty recycle bin in Linux command line
+=========================================================================
+
+[Method #1]
+Install the tool "trash-cli", then you can use command 
+"trash-empty" to empty the trash bin.
+
+sudo apt-get update
+sudo apt-get install trash-cli
+
+trash-list
+trash-empty
+-------------------------------------------------------------------------
+
+[Method #2]
+Without installing any tool, you can empty the trash bin by:
+
+rm -rf ~/.local/share/Trash/*
+-------------------------------------------------------------------------
+
+Prefer using trash-cli (method #1), since after Method #2, 
+the icon update to the recycle bin is not correct sometimes.
+
+=========================================================================
+	END
+=========================================================================
+

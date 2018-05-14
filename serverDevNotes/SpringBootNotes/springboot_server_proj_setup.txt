@@ -1,0 +1,78 @@
+
+1. create spring boot starter project
+
+2. Add necessary dependencies in pom.xml
+
+3. create dev and debug properties files in config folder   
+    
+4. server.port and server.address can be set in application.properties
+    server.port=8080
+    server.address=105.145.43.222
+    
+5. db connection can be set in application.properties (use local mysql root and pw)
+    
+#config db connection:
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/spring_boot       -> change this to mysql db name
+spring.datasource.username=root         -> mysql user
+spring.datasource.password=123          -> mysql pw
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true    
+
+spring.jpa.hibernate.ddl-auto有4个属性： 
+create： 不管数据库原先有没有这个表，每次启动应用，都会drop这个表，然后再创建新的一张表。 
+update: 如果数据库中有这个表且有数据，那么我会保留这张表，不会去删除它。 
+create-drop: 应用停止的时候， 会把数据库里面这张表删除。 
+none: 不产生任何行为。
+
+4. create webapp folder *
+
+5. add user folder
+
+6. add (1) User - entity (2) UserController (3) UserRepository (4) UserService
+
+7. User mapping to create APIs in controller
+
+8. the dependency spring-boot-starter-data-jpa version must matches the version of spring-boot-starter-parent, 
+otherwise, you will see:
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field leagueRepository in com.dheeraj.service.LeagueService required a bean named 'entityManagerFactory' that could not be found.
+
+
+Action:
+
+Consider defining a bean named 'entityManagerFactory' in your configuration.
+
+
+For example, these 2 match:
+    <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>1.5.8.RELEASE</version>
+        </dependency>
+	
+9. mysql needs to create DB, but no need to create tables
+
+10. 远程访问要关闭防火墙，
+ubuntu:
+sudo ufw disable
+sudo ufw status
+sudo ufw enable
+
+11. db 配置
+
+12.
+
+

@@ -1,47 +1,59 @@
 
 ============================================================
-	Install git in Ubuntu
+	Install git 
 ============================================================
-Step 1: Install repo tool in Ubuntu:
-
-Open linux shell terminal on server or use MobaXterm:
-
-mkdir ~/bin	-> create bin folder in Ubuntu account root path (i.e. home/louislu)
-PATH=~/bin:$PATH
-curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-chmod a+x ~/bin/repo
----------------------------------------------------
-Step 2: Sync repos from remote to local Ubuntu:
-
-mkdir android_KK	-> create android folder in Ubuntu account root path (i.e. home/louislu)
-cd android_KK	-> attention: always sync repo in android folder!!!
-
-*** without SDK build tools ***
-repo init -u git@git.harman.com:platform/android-manifest.git -b harman-info3-kk-release -m harman_info3_default.xml 
-
-*** with SDK build tools ***
-repo init -u git@git.harman.com:platform/android-manifest.git -b harman-info3-kk-release -m harman_info3_default.xml -g all,-notdefault,tools
-repo sync
-
-============================================================
-	Some special repo sync cmds
-============================================================
-# You can only repo sync a certain project, for example (pay attention to the path format):
-repo sync harman/frameworks/base/ -j8
----------------------------------------------------
-# You can only repo sync current branch (harman-info3-kk-release) by:
-repo sync -c
-
-but if you want to see other people's new remote branch, 
-you have to do fully repo sync, because their remote branches are not part of the current branch.
----------------------------------------------------
-
 
 
 ============================================================
-	commit viewer for git 
+	Setup name and email
 ============================================================
-gitk
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+
+============================================================
+	Change email
+============================================================
+# For global email, you can change and check as follows:
+$ git config --global user.email "email@example.com"
+$ git config --global user.email	--> this command will show you the current email
+------------------------------------------------------------
+# If you want to change email for a particular repo, do this:
+# cd to the specific repo folder first;
+$ git config user.email "email@example.com"
+$ git config user.email	--> this command will show you the current email for current repo
+
+============================================================
+	Show history
+============================================================
+$ gitk
+
+============================================================
+	Create a repo on github
+============================================================
+Create repo on github.com
+
+Refer to hello world example:
+https://guides.github.com/activities/hello-world/
+
+Steps:
+To create a new repository
+
+1) In the upper right corner, next to your avatar or identicon, 
+	click  and then select New repository.
+2) Name your repository hello-world.
+3) Write a short description.
+4) Select Initialize this repository with a README.
+5) Click Create repository
+
+============================================================
+	Clone remote repo to local
+============================================================
+git clone https://github.com/lypluto/hello-world.git
+
+After the clone is 100% done, you can go to the folder contains .git file,
+and create your local development branch.
+
+
 
 ============================================================
 	How to push your changes

@@ -1,0 +1,57 @@
+================================================================================
+    Ubuntu firewall settings
+================================================================================
+
+[1] Check firewall status:
+
+$ sudo ufw status
+
+Status: active
+Status: inactive
+
+--------------------------------------------------------------------------------
+[2] Enable/disable firewall:
+
+$ sudo ufw enable
+$ sudo ufw disable
+
+--------------------------------------------------------------------------------
+[3] Enable firewall, but allow access from a specific IP:
+
+$ sudo ufw enable
+$ sudo ufw allow from 108.123.47.1
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Anywhere                   ALLOW       108.123.47.1
+
+--------------------------------------------------------------------------------
+[4] Delete a rule
+
+$ sudo ufw delete allow from 108.123.47.1
+
+--------------------------------------------------------------------------------
+[5] Allow access from a specific IP to a certain Ubuntu port:
+
+$ sudo ufw allow from 108.123.47.1 to any port 22
+
+* If you want to use WinSCP to access Ubuntu from Windows, 
+* then you need to add Windows IP by this way.
+
+--------------------------------------------------------------------------------
+[M] Others
+
+
+
+
+
+
+
+
+
+
+
+
+

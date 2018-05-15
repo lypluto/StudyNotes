@@ -1,0 +1,54 @@
+================================================================================
+    使用 GPARTED-LIVE (GNOME Partition Editor) USB 调整 /boot 分区大小
+================================================================================
+
+[1] 准备一个U盘 (>400M)，格式化成FAT32
+
+[2] 下载 gparted-live iso文件
+下载地址： https://gparted.org/download.php
+下载这个i686的版本就可以: gparted-live-0.31.0-1-i686.iso
+
+[3] 制作 gparted-live usb 启动盘
+参考这个文章： http://blog.sina.com.cn/s/blog_44c488680101hwk0.html
+
+3.1 安装tuxboot
+     sudo apt-add-repository ppa:thomas.tsai/ubuntu-tuxboot
+     sudo apt-get update
+     sudo apt-get install tuxboot
+3.2 制作gparted的live USB
+     运行Tuxboot，Pre Downloaded ISO 选择之前下载的iso文件;
+     将其安装到FAT32格式的U盘中。Follow 向导进行安装。等待完成Exit.
+
+[4] BIOS设置从USB启动。
+不同的BIOS设置不同。我的三星台式机是在启动后选择system settings 然后进入bios, 选择boot -> boot priority, 然后选插好的U盘作为第一优先，然后重启电脑即可。
+
+[5] 启动进入GPARTED-LIVE
+gparted 启动和linux启动是一样的，所以如果你的Linux启动时候有附加的EDIT选项，那么你启动gparted也必须加上。否则会出现相同故障。
+
+比如我的ubuntu 启动项 'e' edit 在splash之后加上了nomodeset, 否则启动黑屏。所以启动gparted，选择GPARTED LIVE (DEFAULT SETTING), 按下'e'键进入edit, 找到nosplash，后面加上nomodeset，然后按ctrl + X 启动即可。
+启动后一律用默认选项，直到看到UI。
+
+然后磁盘分析界面会自动打开。
+
+[6] 如何挪动分区呢？ 
+把“路过”的分区一一进行调整。调整这些分区的前后空闲区的大小。
+
+我的/boot后面相邻的是ubuntu /home分区，/home只有后面有空间，所以右键选择home, resize/move， 
+【Free space following(MiB)】调整为800M, 然后resize, 之后会在后面出现一个free space.
+
+再选择home, resize/move, 【Free space following(MiB)】调整为0, 
+Free space preceding(MiB)】调整为800M, 然后resize, 这样free space就跑到home前面了，刚好与boot相邻。
+
+这时候可以选择/boot, resize/move, 然后拖动滚动条，把后面free space都包括。然后resize. 这样这部分free space就合并进入/boot.
+
+然后点绿色对钩应用这些改动。等待分区调整完成。退出gparted，关机。拔下U盘。重启计算机即可。
+
+
+
+
+
+
+
+
+
+

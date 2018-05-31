@@ -1,0 +1,10 @@
+
+// install ctags:
+sudo apt-install ctags
+
+// then, build tags for current folder:
+ctags -R . 
+
+tags -> list all tags
+
+// then, in vim, use short cut to search a tag

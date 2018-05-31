@@ -1,0 +1,46 @@
+================================================================================
+	Linux shell commands
+================================================================================
+
+================================================================================
+	How to check the size of a folder/file
+================================================================================
+
+# check space
+sudo df -hl
+
+# check space used by each user:
+sudo du -h -dl -x /home/
+
+du -hcs dir_name	-> check the total size of a path
+du -h dir_name		-> check the size of a path, all subfolders will be listed individually. 
+
+================================================================================
+	user, ownership, group
+================================================================================
+
+# check current groups and each group contains whom:
+cat /etc/group
+
+# add a group:
+sudo addgroup <group name>
+
+# delete a group:
+sudo groupdel <group name>
+
+# add a user to a group:
+addgroup <user name> <group name>
+# example:
+addgroup louislu sambashare
+
+# change the ownership of a folder:
+sudo chown -hR louislu:louislu /mnt/ssd_256gb/louislu
+
+# change file read/write permission:
+chmod 777 <file name>
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+
+================================================================================
+    How to use "find" to find file or folder
+================================================================================
+
+// find a file with file name "file1.txt":
+find . -name file1.txt
+
+// find a file with file name starts with "file1":
+find . -name "file1*"
+
+
+
+
+================================================================================
+    How to use "grep" to find files that contain certain strings
+================================================================================
+
+// try to find all files contain "ABC" in current path:
+$ grep -nre "ABC" .
+
+
+

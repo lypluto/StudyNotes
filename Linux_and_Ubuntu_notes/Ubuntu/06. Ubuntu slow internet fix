@@ -1,0 +1,29 @@
+================================================================================
+    Ubuntu slow internet bug fix
+================================================================================
+Fix the bug in Debian Avahi-daemon
+
+The slow WiFi in Ubuntu problem could be related to a bug in Avahi-daemon of Debian. 
+Ubuntu and many other Linux distribution are based on Debian, 
+so this bug propagates to several Linux distributions. 
+
+To fix this bug, you have to edit the nsswitch configuration file. 
+Open a terminal and use the following command:
+
+$ sudo gedit /etc/nsswitch.conf
+
+This will open the configuration file in gedit so that you could edit it easily in GUI. 
+In here, look for the following line:
+
+hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4
+
+If you find this line, replace it with the following line:
+
+hosts: files dns
+
+Save it, close it, restart your computer. 
+It should fix the slow wireless connection problem for you. 
+
+================================================================================
+    END
+================================================================================

@@ -1,8 +1,29 @@
+
+=========================================================
+	Default debug keystore path
+=========================================================
+~/.android/debug.keystore
+
+=========================================================
+	How to get the fingerprint of an KeyStore
+=========================================================
+
+[1] create a KeyStore file (jks) with Android Studio
+
+[2] get fingerprint of the jks:
+
+keytool -list -v -keystore <keystore jks file name> 
+
+Then, you will be asked to enter the password
+ 
 =========================================================
 	How to get the fingerprint of an APK
 =========================================================
 
-[1] Make sure the app apk is signed with RSTV or SSB;
+[0] The fingerprint of a release app apk is actually the fingerprint of the KeyStore
+    which is used to sign the release app apk.
+    
+[1] Sign the release app apk with the KeyStore;
 
 [2] Then, get fingerprint from APK:
 
